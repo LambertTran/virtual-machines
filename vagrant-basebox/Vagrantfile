@@ -1,0 +1,10 @@
+Vagrant.configure("2") do |config|
+  config.vm.define "base" do |box|
+    box.vm.box = "hashicorp/bionic64"
+    box.vm.hostname = 'base'
+    box.vm.provision "shell", path: "../common-pkgs/default-key.sh"
+    box.vm.provision "shell", path: "../common-pkgs/essentials.sh"
+    box.vm.provision "shell", path: "../common-pkgs/docker.sh"
+    box.vm.provision "shell", path: "../common-pkgs/kube.sh"
+  end
+end
