@@ -23,4 +23,4 @@ sudo apt-get install -y docker-ce=${DOCKER_CE_VERSION} docker-ce-cli containerd.
 
 sudo docker --version
 
-sudo grouadd docker
+sudo groupadd docker

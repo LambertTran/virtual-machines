@@ -2,7 +2,7 @@
 
 vagrant up
 
-BASEBOX_NAME=$(VBoxManage list vms | grep base | awk '{print $1}')
+BASEBOX_NAME=$(VBoxManage list vms | grep base | awk '{print $1}' | cut -d "\"" -f2)
 
 vagrant package --base ${BASEBOX_NAME}
 
