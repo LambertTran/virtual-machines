@@ -1,18 +1,17 @@
 #!/bin/bash -ex
 
 echo "======== Installing Essential Packages ============ "
-sudo apt-get update
-sudo apt-get install -y vim \
-    aptitude \
+sudo yum update -y
+sudo yum install -y \
+    vim \
     python3 \
     python3-pip \
     curl \
-    dnsutils \
-    telnet \
-    git
+    git \
+    bind-utils \
+    telnet
 
-sudo pip3 install awscli
-
-sudo apt-get update
-sudo apt-get install -y \
-     dnsutils iputils-ping telnet aptitude git python3-pip
+echo "======== Installing Essential Pip Packages ============ "
+sudo pip3 install \
+    awscli \
+    docker-compose==1.25.4

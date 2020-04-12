@@ -1,24 +1,34 @@
 #!/bin/bash
 
 #---------- Version ----------
-DOCKER_CE_VERSION="5:19.03.7~3-0~ubuntu-bionic"
+DOCKER_CE_VERSION="3:19.03.8-3.el7"
+CONTAINERD="https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.2-3.3.el7.x86_64.rpm"
+#---------- Remove Old Packages if exist ----------
+sudo yum remove -y \
+    docker \
+    docker-client \
+    docker-client-latest \
+    docker-common \
+    docker-latest \
+    docker-latest-logrotate \
+    docker-logrotate \
+    docker-engine
 
-sudo apt-get remove -y docker docker-engine docker.io containerd runc
-sudo apt-get update
-sudo apt-get install -y \
-    apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+#---------- Installation ----------
+sudo yum install -y yum-utils
+sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo yum install ${CONTAINERD}
 
-sudo apt-key fingerprint 0EBFCD88
+sudo yum install docker-ce-${DOCKER_CE_VERSION} docker-ce-cli
 
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
+#---------- Customization -----------
+sudo mkdir /etc/docker
 
-sudo apt-get update
-
-sudo apt-get install -y docker-ce=${DOCKER_CE_VERSION} docker-ce-cli containerd.io
-
-sudo docker --version
+sudo bash -c 'cat <<EOF > /etc/docker/daemon.json
+{
+    "data-root": "/opt/docker"
+}
+EOF'
