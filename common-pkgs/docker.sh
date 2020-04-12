@@ -20,9 +20,9 @@ sudo yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 
-sudo yum install ${CONTAINERD}
+sudo yum install -y ${CONTAINERD}
 
-sudo yum install docker-ce-${DOCKER_CE_VERSION} docker-ce-cli
+sudo yum install -y docker-ce-${DOCKER_CE_VERSION} docker-ce-cli
 
 #---------- Customization -----------
 sudo mkdir /etc/docker
