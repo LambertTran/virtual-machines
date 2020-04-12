@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
   config.vm.define "base" do |box|
-    box.vm.box = "bento/centos-8.1"
+    box.vm.box = "centos/8"
     box.vm.hostname = 'base'
     box.vm.provision "shell", path: "../common-pkgs/default-key.sh"
     box.vm.provision "shell", path: "../common-pkgs/essentials.sh"
