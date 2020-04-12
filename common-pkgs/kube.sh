@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash -xe
 
 #--------- Network Requirements -----------
 sudo bash -c 'cat <<EOF > /etc/sysctl.d/k8s.conf

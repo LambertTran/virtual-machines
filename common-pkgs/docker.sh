@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -ex
 
 #---------- Version ----------
 DOCKER_CE_VERSION="3:19.03.8-3.el7"
