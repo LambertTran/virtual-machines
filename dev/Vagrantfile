@@ -36,4 +36,28 @@ Vagrant.configure("2") do |config|
             vb.cpus = 2
         end
     end
+
+    config.vm.define "dev-worker1" do |box|
+        box.vm.box = basebox
+        box.ssh.private_key_path = "~/.ssh/id_ed25519"
+        box.vm.hostname = 'dev-worker1'
+        box.vm.network :public_network, ip: "10.0.0.152", bridge: "en1: Wi-Fi (AirPort)"
+        box.vm.provider "virtualbox" do |vb|
+            vb.gui = false
+            vb.memory = 2404
+            vb.cpus = 2
+        end
+    end
+
+    config.vm.define "dev-worker2" do |box|
+        box.vm.box = basebox
+        box.ssh.private_key_path = "~/.ssh/id_ed25519"
+        box.vm.hostname = 'dev-worker2'
+        box.vm.network :public_network, ip: "10.0.0.153", bridge: "en1: Wi-Fi (AirPort)"
+        box.vm.provider "virtualbox" do |vb|
+            vb.gui = false
+            vb.memory = 2404
+            vb.cpus = 2
+        end
+    end
 end
