@@ -3,7 +3,7 @@
 lsblk
 
 sudo mkdir /opt/lb
-sudo chown -R ubuntu:ubuntu /opt/lb
+sudo chown -R centos:centos /opt/lb
 
 sudo mkfs -t ext4 /dev/xvdb
 

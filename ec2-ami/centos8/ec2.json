@@ -1,0 +1,51 @@
+{
+    "variables": {
+        "aws_access_key": "{{ env `AWS_ACCESS_KEY_ID` }}",
+        "aws_secret_key": "{{ env `AWS_SECRET_ACCESS_KEY` }}",
+        "aws_session_token": "{{ env `AWS_SESSION_TOKEN`}}",
+        "region": "{{ env `AWS_DEFAULT_REGION` }}",
+        "ami_base": "ami-0bc06212a56393ee1",
+        "subnet": "subnet-0886e07e152d7d289"
+    },
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "ami_name": "centos7-{{isotime \"02-Jan-06 03_04_05\"}}",
+            "access_key": "{{user `aws_access_key`}}",
+            "secret_key": "{{user `aws_secret_key`}}",
+            "token": "{{user `aws_session_token`}}",
+            "region": "{{ user `region` }}",
+            "source_ami": "{{ user `ami_base` }}",
+            "associate_public_ip_address": true,
+            "subnet_id": "{{ user `subnet` }}",
+            "instance_type": "t2.micro",
+            "ssh_username": "centos",
+            "launch_block_device_mappings": [
+                {
+                    "device_name": "/dev/sda1",
+                    "volume_type": "gp2",
+                    "encrypted": true,
+                    "kms_key_id": "e7f4b6c8-65a4-4e19-8276-d2bf402b54a2",
+                    "delete_on_termination": true
+                },
+                {
+                    "device_name": "/dev/sdb",
+                    "volume_type": "gp2",
+                    "volume_size": 8,
+                    "delete_on_termination": true,
+                    "encrypted": true,
+                    "kms_key_id": "e7f4b6c8-65a4-4e19-8276-d2bf402b54a2"
+                }
+            ]
+        }
+    ],
+    "provisioners": [{
+        "type": "shell",
+        "scripts": [
+            "../../common-pkgs/essentials.sh",
+            "../../common-pkgs/docker.sh",
+            "../../common-pkgs/kube.sh",
+            "../../ec2-scripts/volume.sh"
+        ]
+    }]
+}
