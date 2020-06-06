@@ -31,7 +31,7 @@ sudo mkdir /etc/docker
 
 sudo bash -c 'cat <<EOF > /etc/docker/daemon.json
 {
-    "data-root": "/opt/docker"
+    "data-root": "/opt/docker",
     "log-opts": {
     "tag": "container_name/{{.Name}}",
     "labels": "${ENV_NAME}",
