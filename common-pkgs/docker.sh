@@ -27,9 +27,9 @@ sudo yum-config-manager \
 sudo yum install -y ${DOCKER_CE} docker-ce-cli ${CONTANERD}
 
 #---------- Customization -----------
-sudo mkdir /etc/docker
+sudo mkdir /etc/docker || true
 
-sudo bash -c 'cat <<EOF > /etc/docker/daemon.json
+cat <<EOF | sudo tee /etc/docker/daemon.json
 {
     "data-root": "/opt/docker",
     "log-opts": {
@@ -39,7 +39,7 @@ sudo bash -c 'cat <<EOF > /etc/docker/daemon.json
     },
     "log-driver": "syslog"
 }
-EOF'
+EOF
 
 sudo systemctl enable docker
 
@@ -47,4 +47,8 @@ sudo systemctl start docker
 
 sudo docker ps -a
 
-sudo usermod -aG docker centos
+#----------------- Add users to docker groups --------------
+users=(centos vagrant)
+for u in ${users[@]}; do
+    id -u $u && sudo usermod -aG docker $u
+done
