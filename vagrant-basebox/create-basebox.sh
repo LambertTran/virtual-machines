@@ -1,5 +1,5 @@
 #!/bin/bash -ex
-BASE_BOX_VERSION="base-centos8-1.0"
+BASE_BOX_VERSION="base-centos7-1.0"
 
 vagrant plugin install vagrant-vbguest
 
