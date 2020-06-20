@@ -32,12 +32,13 @@ sudo mkdir /etc/docker || true
 cat <<EOF | sudo tee /etc/docker/daemon.json
 {
     "data-root": "/opt/docker",
+    "log-driver": "json-file",
     "log-opts": {
-    "tag": "container_name/{{.Name}}",
-    "labels": "${ENV_NAME}",
-    "syslog-facility": "daemon"
-    },
-    "log-driver": "syslog"
+        "max-size": "10m",
+        "max-file": "3",
+        "tag": "container_name/{{.Name}}",
+        "labels": "${ENV_NAME}"
+    }
 }
 EOF
 
