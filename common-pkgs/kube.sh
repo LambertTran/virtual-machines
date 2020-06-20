@@ -10,6 +10,11 @@ sudo modprobe br_netfilter
 
 sudo sysctl --system
 
+#--------- Turn off swap ----------
+sudo sed -i "/swap/d" /etc/fstab
+sudo swapoff -a
+sudo sudo mount -a
+
 #--------- Installation -----------
 sudo bash -c 'cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
