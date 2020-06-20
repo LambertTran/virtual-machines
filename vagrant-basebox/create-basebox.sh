@@ -11,4 +11,6 @@ vagrant package --base ${BASEBOX_NAME}
 
 vagrant box add ${BASE_BOX_VERSION} ./package.box
 
+rm ./package.box
+
 vagrant destroy
